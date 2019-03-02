@@ -1,19 +1,25 @@
 language: python
+
 python:
 - '3.3'
+
 install:
 - pip install codecov
 - pip install coverage
+
 script:
 - python -m unittest discover -v ./ci_play/
 - coverage run ./ci_play/test.py
+
 after_success:
 - codecov
+
 dd:
 - openssl aes-256-cbc -K $encrypted_4f6f7c5ad467_key -iv $encrypted_4f6f7c5ad467_iv
   -in deploy_rsa.enc -out deploy_rsa -d
+
 addons:
-ssh_known_hosts: moon.scs.ryerson.ca
+  ssh_known_hosts: moon.scs.ryerson.ca
 
 before_deploy:
 - openssl aes-256-cbc -K $encrypted_4f6f7c5ad467_key -iv $encrypted_4f6f7c5ad467_iv 
@@ -25,6 +31,8 @@ before_deploy:
 deploy:
   provider: script
   skip_cleanup: true
-  script: rsync -r --delete-after --quiet ${TRAVIS_BUILD_DIR}/ci_play d2mei@d2mei@moon.scs.ryerson.ca:/home/avm/courses/cps847/d2mei
+  script: rsync -r --delete-after --quiet 
+    ${TRAVIS_BUILD_DIR}/ci_play 
+    d2mei@d2mei@moon.scs.ryerson.ca:/home/avm/courses/cps847/d2mei
   on:
     branch: master
