@@ -32,6 +32,6 @@ deploy:
   skip_cleanup: true
   script: rsync -r --delete-after --quiet 
     ${TRAVIS_BUILD_DIR}/ci_play 
-    d2mei@d2mei@moon.scs.ryerson.ca:/home/avm/courses/cps847/d2mei
+    d2mei@moon.scs.ryerson.ca:/home/avm/courses/cps847/d2mei
   on:
     branch: master
